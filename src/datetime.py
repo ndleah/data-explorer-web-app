@@ -9,8 +9,8 @@ import altair as alt
 
 @dataclass
 class DateColumn:
-  col_name: str
-  serie: pd.Series
+  col_name: str = None
+  serie: pd.Series = None
 
   def get_data(self, name, dfdata):
     self.col_name = name
