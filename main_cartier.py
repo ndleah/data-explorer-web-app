@@ -15,7 +15,7 @@ if  file_uploaded is not None:
     datetime_col = csv_file.select_dtypes(include = ["datetime64"])
     datetime_col.columns = datetime_col.columns.str.replace(' ','_') # replace the column has space with '_'
 
-datecol_object = DateColumn
+datecol_object = DateColumn()
 for (columnname, columndata) in datetime_col.iteritems():
     datecol_object.get_data(columnname)
     
