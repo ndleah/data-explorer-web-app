@@ -43,4 +43,7 @@ for (columnname, columndata) in datetime_col.iteritems():
 st.markdown("**Bar Chart**")
 st.altair_chart(datecol_object.get_barchart())
 
-# create 
+# create frequency table
+st.markdown('**Most Frequent Values**')
+frequencies = datecol_object.dt_freq_percent()
+st.write(frequencies)
