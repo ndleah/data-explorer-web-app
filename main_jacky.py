@@ -11,17 +11,19 @@ uploaded_file = st.file_uploader("Please choose a CSV file:")
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     df_text  = df.select_dtypes(include=['object'])
-    df_text.columns = df_text.columns.str.replace(' ','_') # replace the column has space with _
+    df_text.columns = df_text.columns.str.replace(' ','_') # replace the column has space with '_'
     st.write(df_text)
     text = TextColumn()
+    column_num = 0
     st.header('3. Text Column Information')
 
 for (columnName, columnData) in df_text.iteritems():
     
     text.get_data(columnName, columnData)
 
-    name = text.get_name()
-    st.markdown(f'Column name: {name}')
+    column_name = text.get_name()
+    st.markdown(f'**3.{column_num} Field Name:** **_{column_name}_**')
+    column_num = column_num + 1
 
     # Display number of unique value
     unique = text.get_unique()
@@ -51,17 +53,17 @@ for (columnName, columnData) in df_text.iteritems():
     mode_value = text.get_mode()
     
     # Create a dataFrame for displaying in the Web App
-    value = {'Value':pd.Series([unique,missing,empty, whitespaces, lower, upper, alp, digital,mode_value[0]], index = ['Number of Unique Values:', 'Number of Rows with Missing Values:',
+    value = {'value':pd.Series([unique,missing,empty, whitespaces, lower, upper, alp, digital,mode_value[0]], index = ['Number of Unique Values:', 'Number of Rows with Missing Values:',
     'Number of Empty Rows:', 'Number of Rows with Only Whitespace:', 'Number of Rows with Only Lowercases:', 'Number of Rows with Only Uppercases:', 'Number of Rows with Only Alphabet:','Number of Rows with Only Digits:','Mode Value'])}
     df_value = pd.DataFrame(value)
     st.write(df_value)
     
     # Plot bar chat and display in Web App
-    st.subheader('Bar Chat')
+    st.markdown('**Bar Chat**')
     st.altair_chart(text.get_barchart())
 
     # Create a frequent table and display in WebA[[]]
-    st.subheader('Most Frequent Values')
+    st.markdown('**Most Frequent Values**')
     frequent = text.get_frequent()
     st.write(frequent)
 
