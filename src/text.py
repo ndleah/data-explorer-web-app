@@ -91,9 +91,9 @@ class TextColumn:
     """
     Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
     """
-    data = {self.col_name:self.serie}
+    data = {'value':self.serie}
     df = pd.DataFrame(data)
-    df_frequent = df.groupby(self.col_name).size().reset_index(name = 'Occurrence')
-    df_frequent['Percentage'] = df_frequent['Occurrence']/df_frequent['Occurrence'].sum()
+    df_frequent = df.groupby('value').size().reset_index(name = 'occurrence')
+    df_frequent['percentage'] = df_frequent['occurrence']/df_frequent['occurrence'].sum()
     
     return df_frequent
