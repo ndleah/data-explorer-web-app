@@ -1,5 +1,5 @@
 from collections import Counter
-from datetime import datetime as dt
+from datetime import datetime as dt, timedelta
 from pandas.core.frame import DataFrame
 import streamlit as st
 from dataclasses import dataclass
@@ -42,8 +42,8 @@ class DateColumn:
     """
     Return number of occurrence of days falling during weekend (Saturday and Sunday)
     """
-    date_weekday = self.serie.weekday()
-    weekend_count = len([day_num for day_num in date_weekday if day_num > 4])
+    day_endweek = self.serie.dt.dayofweek
+    weekend_count = len([day_num for day_num in day_endweek if day_num > 4])
     return weekend_count
 
 
@@ -51,8 +51,8 @@ class DateColumn:
     """
     Return number of weekday days (not Saturday or Sunday)
     """
-    date_weekday = self.serie.weekday()
-    weekday_count = len([day_num for day_num in date_weekday if day_num < 5])
+    day_weekday = self.serie.dt.dayofweek
+    weekday_count = len([day_num for day_num in day_weekday if day_num < 5])
     return weekday_count
 
   
@@ -60,17 +60,17 @@ class DateColumn:
     """
     Return number of cases with future dates (after today)
     """
-    today = dt.today()
-    future_dates = [dates for dates in self.serie if dates > today]
-    number_of_dates_after_today = len(future_dates)
-    return number_of_dates_after_today
+    today_date = pd.Timestamp.today()
+    timedelta_dates = [today_date - dates for dates in self.serie]
+    futureday = pd.Series(timedelta_dates)
+    futuredate = len([day_num for day_num in futureday.dt.days if day_num > 0])
+    return futuredate
 
   def get_empty_1900(self):
     """
     Return number of occurrence of 1900-01-01 value
     """
-    dates_1900 = [dates for dates in self.serie if dates == "1900-01-01"]
-    number_of_dates_1900 = len(dates_1900)
+    number_of_dates_1900 = len([dates for dates in self.serie if dates == "1900-01-01"])
     return number_of_dates_1900
 
   def get_empty_1970(self):
@@ -105,6 +105,9 @@ class DateColumn:
     bar_chart = alt.Chart(dates_freq).mark_bar().encode(
       x = "Datetime_col",
       y = "Frequency"
+    ).properties(
+      width = 400,
+      height = 400
     )
     return bar_chart
 
