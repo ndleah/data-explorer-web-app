@@ -12,14 +12,11 @@ class DateColumn:
   col_name: str = None
   serie: pd.Series = None
 
-  def get_data(self, name, dfdata):
-    self.col_name = name
-    self.serie = dfdata
-
   def get_name(self):
     """
     Return name of selected column
     """
+
     return self.col_name
 
   def get_unique(self):
@@ -93,6 +90,7 @@ class DateColumn:
     Return the maximum date 
     """
     max_date = max(self.serie)
+    print(max_date)
     return max_date
 
   def get_barchart(self):
@@ -118,15 +116,5 @@ class DateColumn:
     count_most_freq = Counter(self.serie)
     most_freq_20 = count_most_freq.most_common(20)
     df_most_freq_20 = pd.DataFrame(most_freq_20, columns=["value", "occurrence"])
-    percent_of_total = df_most_freq_20[1]/len(self.serie)
-    df_most_freq_20["percentage"] = percent_of_total
-    df_most_20_freq_percent = pd.dataframe(df_most_freq_20)
-    return df_most_20_freq_percent
-
-def dt_freq_percent():
-    """
-    Return streamlit table containing number of occurrence and percentage for each value
-    """
-    most_freq = DateColumn.df_most_20_freq_percent
-    st_table_dt_freq_percent = st.table(most_freq)
-    return st_table_dt_freq_percent
+    df_most_freq_20["percentage"] = df_most_freq_20["occurrence"]/df_most_freq_20["occurrence"].sum() * 100
+    return df_most_freq_20
