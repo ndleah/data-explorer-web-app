@@ -151,7 +151,7 @@ if dataset is not None:
   # Display header called “Information on datetime columns”
   st.header('4. Information on datetime columns')
   empty_list = []
-  if df_selectbox[0] is not None:
+  if df_selectbox:
     if df.select_dtypes(include = ["datetime64"]) is not None:
     
       # create dataframe with only datetime data only 
