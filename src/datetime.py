@@ -58,9 +58,10 @@ class DateColumn:
     Return number of cases with future dates (after today)
     """
     today_date = pd.Timestamp.today()
-    timedelta_dates = [today_date - dates for dates in self.serie]
-    futureday = pd.Series(timedelta_dates)
-    futuredate = len([day_num for day_num in futureday.dt.days if day_num > 0])
+    futuredate = 0
+    for dates in self.serie:
+      if dates > today_date:
+        futuredate = futuredate +1
     return futuredate
 
   def get_empty_1900(self):
