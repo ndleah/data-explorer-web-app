@@ -1,1 +1,15 @@
-# To be filled by students
+version: '2.4'
+
+services:
+  streamlit:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    ports:
+      - '8501:8501'
+    volumes:
+      - './data:/usr/src/app/data:delegated'
+      - './app:/usr/src/app/app:delegated'
+    environment:
+      - USER_ID=1000
+      - GROUP_ID=1000

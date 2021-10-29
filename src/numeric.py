@@ -13,6 +13,7 @@ class NumericColumn:
   def get_name(self):
     """
     Return name of selected column
+    df 
     """
     return None
 
