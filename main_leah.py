@@ -200,7 +200,7 @@ if dataset is not None:
                   }
           
       display_sumdate = pd.DataFrame(datetime_sum)
-      #st.dataframe(display_sumdate)
+      st.dataframe(display_sumdate)
 
       # bar chart
       st.markdown("**DateTime Bar Chart Frequencies**")
