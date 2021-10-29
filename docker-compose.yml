@@ -1,9 +1,9 @@
-version: '3.7'
-
+version: "3"
 services:
   streamlit:
-    build:
-      dockerfile: ./Dockerfile
-      context: ./
+    build: .
+    command: "streamlit run src/monitor.py --server.enableCORS false"
     ports:
-      - '8501:8501'
+      - "8501:8501"
+    volumes:
+      - "./src:/usr/src/app/src"
