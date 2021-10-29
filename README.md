@@ -20,10 +20,10 @@ In this project, our group will develop an interactive web application using Str
 │
 ├── .github/
 │   ├── ISSUE_TEMPLATE       
-│   │   ├── bug_report.md        <- main script used for displaying the final application in the Docker container  
-│   │   └── feature_request.md   <- main script used for displaying the final application in the Docker container
+│   │   ├── bug_report.md        <- GitHub issue template for reporting bugs  
+│   │   └── feature_request.md   <- GitHub issue template for requesting improvement features
 │   │
-│   └── PULL_REQUEST_TEMPLATE.md <- main script used for displaying the final application in the Docker container
+│   └── PULL_REQUEST_TEMPLATE.md <- GitHub template for pull request
 │
 ├── app/
 │   └── streamlit_app.py         <- main script used for displaying the final application in the Docker container
