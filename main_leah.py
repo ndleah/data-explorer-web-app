@@ -17,7 +17,7 @@ dataset = st.file_uploader("Choose a CSV file",type=["csv"])
 if dataset is not None:
   # read csv file
   df = pd.read_csv(dataset)
-  df = df.columns.str.replace(' ','_') # replace the column has space with '_'
+  df.columns = df.columns.str.replace(' ','_') # replace the column has space with '_'
 
   ######################################################
   # 1. Overall Information
