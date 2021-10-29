@@ -150,25 +150,9 @@ if dataset is not None:
   
   # Display header called “Information on datetime columns”
   st.header('4. Information on datetime columns')
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-
-  # create dataframe with only datetime data only 
-  datetime_col = df.select_dtypes(include = ["datetime64"])
-=======
- 
-  if df_selectbox:
-
-    if df.select_dtypes(include = ["datetime64"]) is not None:
->>>>>>> Stashed changes
-    
-  # instantiate class object
-  datecol_object = DateColumn(datetime_col.columns, datetime_col.stack())
-=======
   empty_list = []
-  if df_selectbox[0] is not None:
+  if df_selectbox:
     if df.select_dtypes(include = ["datetime64"]) is not None:
->>>>>>> main
     
       # create dataframe with only datetime data only 
       datetime_col = df.select_dtypes(include = ["datetime64"])
