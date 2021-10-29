@@ -56,7 +56,7 @@ Clone the repository
 
 ```bash
 git clone https://github.com/ndleah/Data_Explorer_Web_App.git
-cd steamlit-docker-example
+cd Data_Explorer_Web_App
 ```
 
 Run the Docker container with docker compose
