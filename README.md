@@ -43,8 +43,8 @@ In this project, our group will develop an interactive web application using Str
 │   
 ├── .dockerignore                <- avoids unecessary files added up in the process of setting up Docker
 ├── .gitignore                   <- avoids unecessary files pushed to the repository
-├── Dockerfile                   <- 
-├── docker-compose.yml           <- 
+├── Dockerfile                   <- file used to build a Docker image
+├── docker-compose.yml           <- a YAML file to configure the application's services
 ├── Pipfile                      <- contain information for the dependencies of the project
 ├── Pipfile.lock                 <- specify, based on the packages present in Pipfile
 └── README.md                    <- a markdown file containing student details, a description of this project and instructions for running the application
