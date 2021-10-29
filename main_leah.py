@@ -9,7 +9,6 @@ from datetime import datetime
 ######################################################
 # Upload csv file
 ######################################################
-
 # Display header title
 st.title('Data Explorer Tool')
 # Upload CSV data
