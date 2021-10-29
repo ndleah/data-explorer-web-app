@@ -19,35 +19,35 @@ In this project, our group will develop an interactive web application using Str
 ./Data_Explorer_Web_App/
 │
 ├── .github/
-│   ├── ISSUE_TEMPLATE
-│   │   ├── bug_report.md
-│   │   └── feature_request.md
+│   ├── ISSUE_TEMPLATE       
+│   │   ├── bug_report.md        <- main script used for displaying the final application in the Docker container  
+│   │   └── feature_request.md   <- main script used for displaying the final application in the Docker container
 │   │
-│   └── PULL_REQUEST_TEMPLATE.md
+│   └── PULL_REQUEST_TEMPLATE.md <- main script used for displaying the final application in the Docker container
 │
 ├── app/
-│   └── streamlit_app.py     <- main script used for displaying the final application in the Docker container
+│   └── streamlit_app.py         <- main script used for displaying the final application in the Docker container
 │
 ├── src/
 │   ├── test
-│   │   ├── test_data.py     <- python script for testing code from data.py
-│   │   ├── test_datetime.py <- python script for testing code from datetime.py
-│   │   ├── test_numeric.py  <- python script for testing code from numeric.py
-│   │   └── test_text.py     <- python script for testing code from text.py
+│   │   ├── test_data.py         <- python script for testing code from data.py
+│   │   ├── test_datetime.py     <- python script for testing code from datetime.py
+│   │   ├── test_numeric.py      <- python script for testing code from numeric.py
+│   │   └── test_text.py         <- python script for testing code from text.py
 │   │
-│   ├── __init__.py          <- turns src folder into a package for importing in main script
-│   ├── data.py              <- contains the code for displaying the "Overall information" section
-│   ├── datetime.py          <- contains the code for displaying the "Information on each datetime" section
-│   ├── numeric.py           <- contains the code for displaying the "Information on each numeric column" section
-│   └── text.py              <- contains the code for displaying the "Information on each text column" section
+│   ├── __init__.py              <- turns src folder into a package for importing in main script
+│   ├── data.py                  <- contains the code for displaying the "Overall information" section
+│   ├── datetime.py              <- contains the code for displaying the "Information on each datetime" section
+│   ├── numeric.py               <- contains the code for displaying the "Information on each numeric column" section
+│   └── text.py                  <- contains the code for displaying the "Information on each text column" section
 │   
-├── .dockerignore            <- avoids unecessary files added up in the process of setting up Docker
-├── .gitignore               <- avoids unecessary files pushed to the repository
-├── Dockerfile               <- 
-├── docker-compose.yml       <- 
-├── Pipfile                  <- contain information for the dependencies of the project
-├── Pipfile.lock             <- specify, based on the packages present in Pipfile
-└── README.md                <- a markdown file containing student details, a description of this project and instructions for running the application
+├── .dockerignore                <- avoids unecessary files added up in the process of setting up Docker
+├── .gitignore                   <- avoids unecessary files pushed to the repository
+├── Dockerfile                   <- 
+├── docker-compose.yml           <- 
+├── Pipfile                      <- contain information for the dependencies of the project
+├── Pipfile.lock                 <- specify, based on the packages present in Pipfile
+└── README.md                    <- a markdown file containing student details, a description of this project and instructions for running the application
 ```
 
 ## ⚙️ Instructions
