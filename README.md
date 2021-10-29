@@ -65,7 +65,7 @@ Run the Docker container with docker compose
 docker-compose up -d --build
 ```
 
-The container will start in detached mode and can now be accessed via [[localhost:8501](http://localhost:8501)](http://localhost:8501). 
+The container will start in detached mode and can now be accessed via [http://localhost:8501](http://localhost:8501). 
 
 Whenever you change the app/streamlit_app.py the steamlit application will update too. If you want to build upon that example, just add your dependencies to the Dockerfile and rebuild the image using docker-compose.
 
