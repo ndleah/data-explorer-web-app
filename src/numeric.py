@@ -21,7 +21,6 @@ class NumericColumn:
   def get_name(self):
     """
     Return name of selected column
-    df 
     """
     return self.col_name.capitalize()
 
