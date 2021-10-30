@@ -1,10 +1,10 @@
 from collections import Counter
-from datetime import datetime as dt, timedelta
 from pandas.core.frame import DataFrame
 import streamlit as st
 from dataclasses import dataclass
 import pandas as pd
 import altair as alt
+import datetime
 
 
 @dataclass
@@ -31,7 +31,7 @@ class DateColumn:
     """
     Return number of missing values for selected column
     """
-    missing_values = self.serie.isnull().sum()
+    missing_values = pd.isna(self.serie).sum()
     return missing_values
 
 
@@ -68,15 +68,23 @@ class DateColumn:
     """
     Return number of occurrence of 1900-01-01 value
     """
-    number_of_dates_1900 = len([dates for dates in self.serie if dates == "1900-01-01"])
+    number_of_dates_1900 = 0
+    date = datetime.date(1900,1,1)
+    for dates in self.serie:
+      if dates == date:
+        number_of_dates_1900 = number_of_dates_1900 + 1
+
     return number_of_dates_1900
 
   def get_empty_1970(self):
     """
     Return number of occurrence of 1970-01-01 value
     """
-    dates_1970 = [dates for dates in self.serie if dates == "1970-01-01"]
-    number_of_dates_1970 = len(dates_1970)
+    number_of_dates_1970 = 0
+    date = datetime.date(1970,1,1)
+    for dates in self.serie:
+      if dates == date:
+        number_of_dates_1970 = number_of_dates_1970 + 1
     return number_of_dates_1970
 
   def get_min(self):

@@ -1,5 +1,5 @@
 from numpy import empty
-from src import Dataset, DateColumn, TextColumn, NumericColumn
+from src import Dataset, DateColumn, TextColumn #NumericColumn
 import streamlit as st
 import pandas as pd
 from pandas.core.frame import DataFrame
@@ -58,7 +58,8 @@ if dataset is not None:
   st.dataframe(df_col_type)
 
   # Display slider for selecting the number of rows to be displayed 
-  df_slider = st.slider("Select the number of rows to be displayed",5,50,5)
+  st.markdown(f'**Display slider for selecting the number of rows to be displayed**')
+  df_slider = st.slider("Select the number of rows to be displayed",5,df_rows,5)
 
   # Display top N rows (default 5 rows) of dataset
   st.markdown('**Top Rows of Table**')
@@ -73,7 +74,9 @@ if dataset is not None:
   st.dataframe(gen_info.get_sample(df_slider))
 
   # Display a multi select box for choosing which text columns will be converted to datetime
-  df_selectbox = st.multiselect("Which columns do you want to convert to dates", gen_info.get_text_columns())
+  #df_selectbox = st.multiselect("Which columns do you want to convert to dates", gen_info.get_text_columns())
+  st.markdown('**Which columns do you want to convert to dates**')
+  df_selectbox = st.multiselect("Please select columns:", gen_info.get_text_columns())
   df[df_selectbox] = df[df_selectbox].apply(lambda col: pd.to_datetime(col, errors='ignore'))
 
   ######################################################
@@ -157,8 +160,8 @@ if dataset is not None:
       datetime_col = df.select_dtypes(include = ["datetime64"])
       
       # instantiate class object
-      datecol_object = DateColumn(datetime_col.columns, datetime_col.stack())
-      
+      datecol_object = DateColumn(datetime_col.columns, datetime_col.stack(dropna=False))
+
       # extract column name
       raw_name = datecol_object.col_name
       name_dt_col = raw_name[0]
