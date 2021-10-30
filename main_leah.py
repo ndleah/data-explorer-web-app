@@ -1,16 +1,17 @@
 from numpy import empty
-from src import Dataset, DateColumn, TextColumn #NumericColumn
 import streamlit as st
 import pandas as pd
 from pandas.core.frame import DataFrame
 import altair as alt
 from datetime import datetime
+from src import Dataset, DateColumn, TextColumn, NumericColumn
 
 ######################################################
 # Upload csv file
 ######################################################
 # Display header title
 st.title('Data Explorer Tool')
+
 # Upload CSV data
 dataset = st.file_uploader("Choose a CSV file",type=["csv"]) 
 
@@ -24,6 +25,7 @@ if dataset is not None:
   ######################################################
   # Display header called “Overall Information”
   st.header('1. Overall Information')
+
   # instantiate class object
   gen_info = Dataset(df, dataset.name)
 
@@ -82,10 +84,70 @@ if dataset is not None:
   ######################################################
   # 2. Information on numeric columns
   ######################################################
-  
+  # Display header called “Information on numeric columns”  
+  st.header('2. Information on numeric columns')
+
+  # create dataframe with only numeric data only 
+  df_numeric  = df.select_dtypes(include=['float64', 'int64'])
+  df_numeric.columns = df_numeric.columns.str.replace(' ','_') # replace the column has space with '_'
+
+  # instantiate class object
+  numeric = NumericColumn()
+  column_num = 0
+
+  for (columnName, columnData) in df_numeric.iteritems():
+
+    numeric.get_data(columnName, columnData)
+    column_name = numeric.get_name()
+    st.markdown(f'**2.{column_num} Field Name:** **_{column_name}_**')
+    column_num = column_num + 1
+
+    # Display number of unique values
+    unique_values = numeric.get_unique()
+
+    # Display number of missing values
+    missing_values = numeric.get_missing()
+
+    # Display number of occurrence of 0 value
+    occurence_0 = numeric.get_zeros()
+
+    # Display number of negative value
+    negative_value = numeric.get_negatives()
+
+    # Display the average value
+    avg_value = numeric.get_mean()
+
+    # Display the standard deviation value
+    std_value = numeric.get_std()
+
+    # Display the minimum value
+    min_value = numeric.get_min()
+
+    # Display the maximum value
+    max_value = numeric.get_max()
+
+    # Display the median value
+    median_value = numeric.get_median()
+
+    # Create a dataFrame for displaying in the Web App
+    value = {'value':pd.Series([unique_values,missing_values,occurence_0,negative_value,avg_value,std_value,min_value,max_value,median_value], 
+    index = ['Number of Unique Values:','Number of Missing Values:','Number of Rows with 0:','Number of Rows with Negative Values:',
+    'Average Values:','Standard Deviation Values:','Minimum Value', 'Maximum Value','Median Value'])}
+    df_value = pd.DataFrame(value)
+    st.write(df_value)
+
+    # Plot bar chat and display in Web App
+    st.markdown('**Histogram**')
+    st.altair_chart(numeric.get_histogram())
+
+    # Create a frequent table and display in WebA[[]]
+    st.markdown('**Most Frequent Values**')
+    frequent = numeric.get_frequent()
+    st.write(frequent)
+
   # ######################################################
   # 3. Information on text columns
-  ######################################################
+  ########################################################
   # Display header called “Information on text columns”
   st.header('3. Information on text columns')
 
@@ -150,7 +212,6 @@ if dataset is not None:
   
   # Display header called “Information on datetime columns”
   st.header('4. Information on datetime columns')
-
   datecol_object = DateColumn()
   date_column_num = 0
 
@@ -215,6 +276,5 @@ if dataset is not None:
       st.markdown('**Most Frequent DateTime Values**')
       frequencies = datecol_object.get_frequent()
       st.write(frequencies)
-    
   else:
-    st.markdown('**No selection for Datetime conversion found.**')
+    st.warning('No selection for Datetime conversion found')
