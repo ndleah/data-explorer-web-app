@@ -1,4 +1,3 @@
-# To be filled by students
 from pandas.core.frame import DataFrame
 import streamlit as st
 from dataclasses import dataclass
