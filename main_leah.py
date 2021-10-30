@@ -91,7 +91,6 @@ if dataset is not None:
 
   # create dataframe with only text data only 
   df_text  = df.select_dtypes(include=['object']) # create text columns dataset
-  st.write(df_text)
   text = TextColumn()
   column_num = 0
 
@@ -101,7 +100,6 @@ if dataset is not None:
 
     # Display name of column as subtitle
     st.markdown(f'**3.{column_num} Field Name:** **_{column_name}_**')
-
     column_num = column_num + 1
 
     # Display number of unique value
@@ -152,22 +150,27 @@ if dataset is not None:
   
   # Display header called “Information on datetime columns”
   st.header('4. Information on datetime columns')
-  empty_list = []
+
+  datecol_object = DateColumn()
+  date_column_num = 0
+
   if df_selectbox:
-    if df.select_dtypes(include = ["datetime64"]) is not None:
+    df_datetime = df[df.columns.intersection(df_selectbox)]
+    for datetime_column in df_datetime.columns:
+      if df_datetime[datetime_column].dtypes != 'datetime64[ns]':
+        st.markdown(f'**4.{date_column_num} Field Name: _{datetime_column.capitalize()}_**')
+        st.markdown('**Column is not a Datetime type or mixed with other data types.**')
+        date_column_num = date_column_num + 1 
     
-      # create dataframe with only datetime data only 
-      datetime_col = df.select_dtypes(include = ["datetime64"])
-      
-      # instantiate class object
-      datecol_object = DateColumn(datetime_col.columns, datetime_col.stack(dropna=False))
-
-      # extract column name
-      raw_name = datecol_object.col_name
-      name_dt_col = raw_name[0]
-
+    datetime_col = df_datetime.select_dtypes(include = ["datetime64"])
+           
+    for (columnName, columnData) in datetime_col.iteritems(): 
+            
+      datecol_object.get_data(columnName, columnData)
+      column_name = datecol_object.get_name()
       # Display name of column as subtitle
-      st.markdown(f"**4.0 Field Name: _{name_dt_col}_**")    
+      st.markdown(f"**4.{date_column_num} Field Name: _{column_name}_**") 
+      date_column_num = date_column_num + 1   
 
       # Applying methods
       uniquedate = datecol_object.get_unique()
@@ -181,26 +184,26 @@ if dataset is not None:
       maxdate = datecol_object.get_max()
 
       datetime_sum = { "" : ["Number of Unique Values", 
-                  "Number of Rows with Missing Values", 
-                  "Number of Weekend Dates", 
-                  "Number of Weekday Dates", 
-                  "Number of Dates in Future", 
-                  "Number of Rows with 1900-01-01", 
-                  "Number of Rows with 1970-01-01", 
-                  "Minimum Value", 
-                  "Maximum Value"], 
-                  "Value" : [uniquedate, 
-                  missingdate, 
-                  weekenddate, 
-                  weekdaydate, 
-                  futuredate, 
-                  empty1900date, 
-                  empty1970date, 
-                  mindate, 
-                  maxdate
-                  ]
-                  }
-          
+                        "Number of Rows with Missing Values", 
+                        "Number of Weekend Dates", 
+                        "Number of Weekday Dates", 
+                        "Number of Dates in Future", 
+                        "Number of Rows with 1900-01-01", 
+                        "Number of Rows with 1970-01-01", 
+                        "Minimum Value", 
+                        "Maximum Value"], 
+                        "Value" : [uniquedate, 
+                        missingdate, 
+                        weekenddate, 
+                        weekdaydate, 
+                        futuredate, 
+                        empty1900date, 
+                        empty1970date, 
+                        mindate, 
+                        maxdate
+                        ]
+                        }
+                
       display_sumdate = pd.DataFrame(datetime_sum)
       st.dataframe(display_sumdate)
 
@@ -208,11 +211,10 @@ if dataset is not None:
       st.markdown("**DateTime Bar Chart Frequencies**")
       st.altair_chart(datecol_object.get_barchart())
 
-      # create frequency table
+            # create frequency table
       st.markdown('**Most Frequent DateTime Values**')
       frequencies = datecol_object.get_frequent()
       st.write(frequencies)
-    else: 
-      st.markdown('**No Datetime found in data.**')
+    
   else:
     st.markdown('**No selection for Datetime conversion found.**')

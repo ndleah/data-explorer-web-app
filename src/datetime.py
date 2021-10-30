@@ -12,12 +12,17 @@ class DateColumn:
   col_name: str = None
   serie: pd.Series = None
 
+
+  def get_data(self, name, dfdata):
+    self.col_name = name
+    self.serie = dfdata
+
   def get_name(self):
     """
     Return name of selected column
     """
 
-    return self.col_name
+    return self.col_name.capitalize()
 
   def get_unique(self):
     """
