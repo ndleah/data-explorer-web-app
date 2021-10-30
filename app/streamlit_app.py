@@ -11,6 +11,7 @@ from datetime import datetime
 ######################################################
 # Display header title
 st.title('Data Explorer Tool')
+
 # Upload CSV data
 dataset = st.file_uploader("Choose a CSV file",type=["csv"]) 
 
@@ -24,6 +25,7 @@ if dataset is not None:
   ######################################################
   # Display header called “Overall Information”
   st.header('1. Overall Information')
+
   # instantiate class object
   gen_info = Dataset(df, dataset.name)
 
@@ -58,7 +60,8 @@ if dataset is not None:
   st.dataframe(df_col_type)
 
   # Display slider for selecting the number of rows to be displayed 
-  df_slider = st.slider("Select the number of rows to be displayed",5,50,5)
+  st.markdown(f'**Display slider for selecting the number of rows to be displayed**')
+  df_slider = st.slider("Select the number of rows to be displayed",5,df_rows,5)
 
   # Display top N rows (default 5 rows) of dataset
   st.markdown('**Top Rows of Table**')
@@ -73,22 +76,84 @@ if dataset is not None:
   st.dataframe(gen_info.get_sample(df_slider))
 
   # Display a multi select box for choosing which text columns will be converted to datetime
-  df_selectbox = st.multiselect("Which columns do you want to convert to dates", gen_info.get_text_columns())
+  #df_selectbox = st.multiselect("Which columns do you want to convert to dates", gen_info.get_text_columns())
+  st.markdown('**Which columns do you want to convert to dates**')
+  df_selectbox = st.multiselect("Please select columns:", gen_info.get_text_columns())
   df[df_selectbox] = df[df_selectbox].apply(lambda col: pd.to_datetime(col, errors='ignore'))
 
   ######################################################
   # 2. Information on numeric columns
   ######################################################
-  
+  # Display header called “Information on numeric columns”  
+  st.header('2. Information on numeric columns')
+
+  # create dataframe with only numeric data only 
+  df_numeric  = df.select_dtypes(include=['float64', 'int64'])
+  df_numeric.columns = df_numeric.columns.str.replace(' ','_') # replace the column has space with '_'
+
+  # instantiate class object
+  numeric = NumericColumn()
+  column_num = 0
+
+  for (columnName, columnData) in df_numeric.iteritems():
+
+    numeric.get_data(columnName, columnData)
+    column_name = numeric.get_name()
+    st.markdown(f'**2.{column_num} Field Name:** **_{column_name}_**')
+    column_num = column_num + 1
+
+    # Display number of unique values
+    unique_values = numeric.get_unique()
+
+    # Display number of missing values
+    missing_values = numeric.get_missing()
+
+    # Display number of occurrence of 0 value
+    occurence_0 = numeric.get_zeros()
+
+    # Display number of negative value
+    negative_value = numeric.get_negatives()
+
+    # Display the average value
+    avg_value = numeric.get_mean()
+
+    # Display the standard deviation value
+    std_value = numeric.get_std()
+
+    # Display the minimum value
+    min_value = numeric.get_min()
+
+    # Display the maximum value
+    max_value = numeric.get_max()
+
+    # Display the median value
+    median_value = numeric.get_median()
+
+    # Create a dataFrame for displaying in the Web App
+    value = {'value':pd.Series([unique_values,missing_values,occurence_0,negative_value,avg_value,std_value,min_value,max_value,median_value], 
+    index = ['Number of Unique Values:','Number of Missing Values:','Number of Rows with 0:','Number of Rows with Negative Values:',
+    'Average Values:','Standard Deviation Values:','Minimum Value', 'Maximum Value','Median Value'])}
+    df_value = pd.DataFrame(value)
+    st.write(df_value)
+
+    # Plot bar chat and display in Web App
+    st.markdown('**Histogram**')
+    st.altair_chart(numeric.get_histogram())
+
+    # Create a frequent table and display in WebA[[]]
+    st.markdown('**Most Frequent Values**')
+    frequent = numeric.get_frequent()
+    st.write(frequent)
+
   # ######################################################
   # 3. Information on text columns
-  ######################################################
+  ########################################################
   # Display header called “Information on text columns”
   st.header('3. Information on text columns')
 
   # create dataframe with only text data only 
   df_text  = df.select_dtypes(include=['object']) # create text columns dataset
-  st.write(df_text)
+  
   text = TextColumn()
   column_num = 0
 
@@ -151,65 +216,70 @@ if dataset is not None:
   st.header('4. Information on datetime columns')
   empty_list = []
   if df_selectbox:
-    if df.select_dtypes(include = ["datetime64"]) is not None:
-    
-      # create dataframe with only datetime data only 
-      datetime_col = df.select_dtypes(include = ["datetime64"])
+    if not df_selectbox:
+      if df.select_dtypes(include = ["datetime64"]) is not None:
       
-      # instantiate class object
-      datecol_object = DateColumn(datetime_col.columns, datetime_col.stack())
-      
-      # extract column name
-      raw_name = datecol_object.col_name
-      name_dt_col = raw_name[0]
+        # create dataframe with only datetime data only 
+        datetime_col = df.select_dtypes(include = ["datetime64"])
+        
+        # instantiate class object
+        datecol_object = DateColumn(datetime_col.columns, datetime_col.stack(dropna=False))
 
-      # Display name of column as subtitle
-      st.markdown(f"**4.0 Field Name: _{name_dt_col}_**")    
+        # extract column name
+        raw_name = datecol_object.col_name
+        name_dt_col = raw_name[0]
 
-      # Applying methods
-      uniquedate = datecol_object.get_unique()
-      missingdate = datecol_object.get_missing()
-      weekenddate = datecol_object.get_weekend()
-      weekdaydate =datecol_object.get_weekday()
-      futuredate = datecol_object.get_future()
-      empty1900date = datecol_object.get_empty_1900()
-      empty1970date = datecol_object.get_empty_1970()
-      mindate = datecol_object.get_min()
-      maxdate = datecol_object.get_max()
+        # Display name of column as subtitle
+        st.markdown(f"**4.0 Field Name: _{name_dt_col}_**")    
 
-      datetime_sum = { "" : ["Number of Unique Values", 
-                  "Number of Rows with Missing Values", 
-                  "Number of Weekend Dates", 
-                  "Number of Weekday Dates", 
-                  "Number of Dates in Future", 
-                  "Number of Rows with 1900-01-01", 
-                  "Number of Rows with 1970-01-01", 
-                  "Minimum Value", 
-                  "Maximum Value"], 
-                  "Value" : [uniquedate, 
-                  missingdate, 
-                  weekenddate, 
-                  weekdaydate, 
-                  futuredate, 
-                  empty1900date, 
-                  empty1970date, 
-                  mindate, 
-                  maxdate
-                  ]
-                  }
-          
-      display_sumdate = pd.DataFrame(datetime_sum)
-      st.dataframe(display_sumdate)
+        # Applying methods
+        uniquedate = datecol_object.get_unique()
+        missingdate = datecol_object.get_missing()
+        weekenddate = datecol_object.get_weekend()
+        weekdaydate =datecol_object.get_weekday()
+        futuredate = datecol_object.get_future()
+        empty1900date = datecol_object.get_empty_1900()
+        empty1970date = datecol_object.get_empty_1970()
+        mindate = datecol_object.get_min()
+        maxdate = datecol_object.get_max()
 
-      # bar chart
-      st.markdown("**DateTime Bar Chart Frequencies**")
-      st.altair_chart(datecol_object.get_barchart())
+        datetime_sum = { "" : ["Number of Unique Values", 
+                    "Number of Rows with Missing Values", 
+                    "Number of Weekend Dates", 
+                    "Number of Weekday Dates", 
+                    "Number of Dates in Future", 
+                    "Number of Rows with 1900-01-01", 
+                    "Number of Rows with 1970-01-01", 
+                    "Minimum Value", 
+                    "Maximum Value"], 
+                    "Value" : [uniquedate, 
+                    missingdate, 
+                    weekenddate, 
+                    weekdaydate, 
+                    futuredate, 
+                    empty1900date, 
+                    empty1970date, 
+                    mindate, 
+                    maxdate
+                    ]
+                    }
+            
+        display_sumdate = pd.DataFrame(datetime_sum)
+        st.dataframe(display_sumdate)
 
-      # create frequency table
-      st.markdown('**Most Frequent DateTime Values**')
-      frequencies = datecol_object.get_frequent()
-      st.write(frequencies)
-    else: 
-      st.markdown('**No Datetime found in data.**')
+        # bar chart
+        st.markdown("**DateTime Bar Chart Frequencies**")
+        st.altair_chart(datecol_object.get_barchart())
+
+        # create frequency table
+        st.markdown('**Most Frequent DateTime Values**')
+        frequencies = datecol_object.get_frequent()
+        st.write(frequencies)
+      else: 
+        st.warning('**No Datetime found in data.**')
+    else:
+      st.warning('**No selection for Datetime conversion found.**')
   else:
-    st.markdown('**No selection for Datetime conversion found.**')
+    st.warning('No selection for Datetime conversion found')
+else:
+  st.info("In this project, our group will develop an interactive web application using Streamlit that will read a provided CSV file by the user and perform some exploratory data analysis on it. The web application needs to be containerised with Docker and will be running using python 3.8.2.")
