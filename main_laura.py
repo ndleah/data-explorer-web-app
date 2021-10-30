@@ -4,7 +4,7 @@ import numpy as np
 import altair as alt
 from pandas.core.frame import DataFrame
 import altair as alt
-from numeric import NumericColumn
+from src import NumericColumn
 
 #title of the app
 st.title("Data Explorer Web App")
@@ -79,20 +79,20 @@ max_value = numeric.get_max()
 median_value = numeric.get_median()
 
 
- # Create a dataFrame for displaying in the Web App
-  value = {'value':pd.Series([unique_values,missing_values,occurence_0,negative_value,avg_value,std_value,min_value,max_value,median_value], 
-  index = ['Number of Unique Values:','Number of Missing Values:','Number of Rows with 0:','Number of Rows with Negative Values:',
-  'Average Values:','Standard Deviation Values:','Minimum Value', 'Maximum Value','Median Value'])}
-  df_value = pd.DataFrame(value)
-  st.write(df_value)
+# Create a dataFrame for displaying in the Web App
+value = {'value': pd.Series([unique_values,missing_values,occurence_0,negative_value,avg_value,std_value,min_value,max_value,median_value], 
+index = ['Number of Unique Values:','Number of Missing Values:','Number of Rows with 0:','Number of Rows with Negative Values:',
+'Average Values:','Standard Deviation Values:','Minimum Value', 'Maximum Value','Median Value'])}
+df_value = pd.DataFrame(value)
+st.write(df_value)
 
     
-  # Plot bar chat and display in Web App
-  st.markdown('**Histogram**')
-  st.altair_chart(numeric.get_histogram())
+# Plot bar chat and display in Web App
+st.markdown('**Histogram**')
+st.altair_chart(numeric.get_histogram())
 
 
-  # Create a frequent table and display in WebA[[]]
-  st.markdown('**Most Frequent Values**')
-  frequent = numeric.get_frequent()
-  st.write(frequent)
+# Create a frequent table and display in WebA[[]]
+st.markdown('**Most Frequent Values**')
+frequent = numeric.get_frequent()
+st.write(frequent)
