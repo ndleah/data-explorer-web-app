@@ -10,7 +10,7 @@ In this project, our group will develop an interactive web application using Str
 
 * [Leah Nguyen](https://github.com/ndleah)
 * [Cartier Zhi](https://github.com/cartierz)
-* [Jia Ping Kai](https://github.com/caijiaping)
+* [Jia Ping Cai](https://github.com/caijiaping)
 * [Laura Sofia Bayona](https://github.com/Laurabayonaf)
 
 ## 🏗️ Structure

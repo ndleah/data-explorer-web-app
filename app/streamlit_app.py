@@ -90,7 +90,7 @@ def project_description() -> None:
     st.markdown('### 👤 **Authors**')
     st.markdown('* [Leah Nguyen](https://github.com/ndleah)')
     st.markdown('* [Cartier Zhi](https://github.com/cartierz)')
-    st.markdown('* [Jia Ping Kai](https://github.com/caijiaping)')
+    st.markdown('* [Jia Ping Cai](https://github.com/caijiaping)')
     st.markdown('* [Laura Sofia Bayona](https://github.com/Laurabayonaf)')
 
 
