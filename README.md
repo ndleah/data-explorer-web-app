@@ -16,7 +16,7 @@ In this project, our group will develop an interactive web application using Str
 ## 🏗️ Structure
 
 ```
-./Data_Explorer_Web_App/
+./
 │
 ├── .github/
 │   ├── ISSUE_TEMPLATE       
@@ -27,6 +27,8 @@ In this project, our group will develop an interactive web application using Str
 │
 ├── app/
 │   └── streamlit_app.py         <- main script used for displaying the final application in the Docker container
+│
+├── img/                         <- contains image(s) used in README.md 
 │
 ├── src/
 │   ├── test
