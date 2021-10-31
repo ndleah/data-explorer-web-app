@@ -212,9 +212,12 @@ if dataset is not None:
   
   # Display header called “Information on datetime columns”
   st.header('4. Information on datetime columns')
+  
+  # instantiate DateColumn object
   datecol_object = DateColumn()
+  
+  # loop to determine whether columns selected in section 1 are datetime64 and return message if datetime not selected
   date_column_num = 0
-
   if df_selectbox:
     df_datetime = df[df.columns.intersection(df_selectbox)]
     for datetime_column in df_datetime.columns:
@@ -223,17 +226,21 @@ if dataset is not None:
         st.markdown('**Column is not a Datetime type or mixed with other data types.**')
         date_column_num = date_column_num + 1 
     
+    # dateframe including only datetime columns 
     datetime_col = df_datetime.select_dtypes(include = ["datetime64"])
-           
+
+    # iteration of datetime summary table, frequency barchart and table for each datetime column       
     for (columnName, columnData) in datetime_col.iteritems(): 
-            
+      
+      # obtaining data and name of datetime columns      
       datecol_object.get_data(columnName, columnData)
       column_name = datecol_object.get_name()
+      
       # Display name of column as subtitle
       st.markdown(f"**4.{date_column_num} Field Name: _{column_name}_**") 
       date_column_num = date_column_num + 1   
 
-      # Applying methods
+      # Applying methods of datetime.py
       uniquedate = datecol_object.get_unique()
       missingdate = datecol_object.get_missing()
       weekenddate = datecol_object.get_weekend()
@@ -244,6 +251,7 @@ if dataset is not None:
       mindate = datecol_object.get_min()
       maxdate = datecol_object.get_max()
 
+      # dictionary of datetime methods' output
       datetime_sum = { "" : ["Number of Unique Values", 
                         "Number of Rows with Missing Values", 
                         "Number of Weekend Dates", 
@@ -264,17 +272,19 @@ if dataset is not None:
                         maxdate
                         ]
                         }
-                
+
+      # dataframe of datetime summary dictionary
       display_sumdate = pd.DataFrame(datetime_sum)
       st.dataframe(display_sumdate)
 
-      # bar chart
+      # bar chart of datetime frequencies
       st.markdown("**DateTime Bar Chart Frequencies**")
       st.altair_chart(datecol_object.get_barchart())
 
-            # create frequency table
+      # create frequency table
       st.markdown('**Most Frequent DateTime Values**')
       frequencies = datecol_object.get_frequent()
       st.write(frequencies)
+  # return warning message when no datetime column selection is detected 
   else:
     st.warning('No selection for Datetime conversion found')
