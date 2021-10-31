@@ -175,6 +175,10 @@ def overall_info(df, dataset) -> None:
                 st.markdown(f'**1.{date_column_num} Field Name: _{datetime_column.capitalize()}_**')
                 st.error('Column is not under Datetime format or mixed with other data types.')
                 date_column_num = date_column_num + 1
+            else:
+                st.markdown(f'**1.{date_column_num} Field Name: _{datetime_column.capitalize()}_**')
+                st.success('The Column has successfully converted to Datetime format.')
+                date_column_num = date_column_num + 1
 
 
 def numeric_column(df) -> None:
@@ -278,7 +282,7 @@ def text_column(df) -> None:
     column_num = 0
 
     if df_text.empty == True:
-        st.warning('**No datetime columns found in the dataset.**')    
+        st.warning('**No text columns found in the dataset.**')    
     else:
         for (columnName, columnData) in df_text.iteritems():
             text.get_data(columnName, columnData)

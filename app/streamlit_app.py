@@ -52,7 +52,6 @@ def file_upload():
     Display file uploader.
     """
     dataset = st.file_uploader("Choose a CSV file", type="csv")
-
     return dataset
 
 
@@ -140,7 +139,7 @@ def overall_info(df, dataset) -> None:
 
     # Display list of columns and their data type (text, numeric, date)
     # Display list of columns
-    df_col_list = str(gen_info.get_cols_list()).replace('[','').replace(']','').replace("'","") # get list of column names
+    df_col_list = str(gen_info.get_cols_list()).replace('[','').replace(']','').replace("'","")
     st.markdown(f'**List of Columns:**')
     st.write(df_col_list)
 
@@ -175,6 +174,10 @@ def overall_info(df, dataset) -> None:
             if df_datetime[datetime_column].dtypes != 'datetime64[ns]':
                 st.markdown(f'**1.{date_column_num} Field Name: _{datetime_column.capitalize()}_**')
                 st.error('Column is not under Datetime format or mixed with other data types.')
+                date_column_num = date_column_num + 1
+            else:
+                st.markdown(f'**1.{date_column_num} Field Name: _{datetime_column.capitalize()}_**')
+                st.success('The Column has successfully converted to Datetime format.')
                 date_column_num = date_column_num + 1
 
 
@@ -279,7 +282,7 @@ def text_column(df) -> None:
     column_num = 0
 
     if df_text.empty == True:
-        st.warning('**No datetime columns found in the dataset.**')    
+        st.warning('**No text columns found in the dataset.**')    
     else:
         for (columnName, columnData) in df_text.iteritems():
             text.get_data(columnName, columnData)
@@ -404,7 +407,7 @@ def datetime_column(df) -> None:
             st.markdown("**DateTime Bar Chart Frequencies**")
             st.altair_chart(datecol_object.get_barchart())
 
-                    # create frequency table
+            # create frequency table
             st.markdown('**Most Frequent DateTime Values**')
             frequencies = datecol_object.get_frequent()
             st.write(frequencies)
