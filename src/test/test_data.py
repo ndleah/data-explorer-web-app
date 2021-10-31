@@ -117,21 +117,21 @@ class TestNMissing(unittest.TestCase):
     def test_get_n_missing(self):
         # create sample dataframe
         details = [
-    {
+        {
         "title": np.nan,
         "score": np.nan,
         "comms_num": np.nan,
         "created": np.nan,
         "timestamp": np.nan
-    },
-    {
+        },
+        {
         "title": "Health Canada",
         "score": 7,
         "comms_num": 1,
         "created": 1614400425,
         "timestamp": "2/27/21 6:33"
-    },
-    {
+        },
+        {
         "title": "Health Canada",
         "score": 6,
         "comms_num": 1,
@@ -144,33 +144,170 @@ class TestNMissing(unittest.TestCase):
         self.assertEqual(test_dataset.get_n_missing(), 1)
 
 
-# class GetHead(unittest.TestCase):
-#     def test_get_head(self):
-#         # create sample dataframe
-#         data = [['tom', 10], ['nick', 15], ['juli', 14], ['annie', 24], ['julie', 20], ['leah', 18],['patrick', 27]]
-#         test_df = pd.DataFrame(data, columns = ['Name', 'Age'])
-#         test_file_name = "car_accident.csv"
-#         test_dataset = Dataset(test_df, test_file_name)
-#         self.assertEqual(test_dataset.get_head(), test_df.head())
+class GetHead(unittest.TestCase):
+    def test_get_head(self):
+        # create sample dataframe
+        details = [
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 6,
+                "comms_num": 1,
+                "created": 1613886608,
+                "timestamp": "3/1/21 6:33"
+            }]
 
-# class GetTail(unittest.TestCase):
-#     def test_get_tail(self):
-#         # create sample dataframe
-#         data = [['tom', 10], ['nick', 15], ['juli', 14], ['annie', 24], ['julie', 20], ['leah', 18],['patrick', 27]]
-#         test_df = pd.DataFrame(data, columns = ['Name', 'Age'])
-#         test_file_name = "car_accident.csv"
-#         test_dataset = Dataset(test_df, test_file_name)
-#         self.assertEqual(test_dataset.get_tail(2), test_df.tail(2))
+        details2 = [
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 6,
+                "comms_num": 1,
+                "created": 1613886608,
+                "timestamp": "3/1/21 6:33"
+            }]
 
+        test_df = pd.DataFrame(details)
+        test_df2 = pd.DataFrame(details2)
+        test_file_name = "car_accident.csv"
+        test_dataset = Dataset(test_df2, test_file_name)
+        self.assertEqual(str(test_dataset.get_head(2)), str(test_df.head(2)))
 
-# class GetSample(unittest.TestCase):
-#     def test_get_sample(self):
-#         # create sample dataframe
-#         data = [['tom', 10], ['nick', 15], ['juli', 14], ['annie', 24], ['julie', 20], ['leah', 18],['patrick', 27]]
-#         test_df = pd.DataFrame(data, columns = ['Name', 'Age'])
-#         test_file_name = "car_accident.csv"
-#         test_dataset = Dataset(test_df, test_file_name)
-#         self.assertEqual(test_df.get_tail(2), test_df.tail(2))
+class GetTail(unittest.TestCase):
+    def test_get_tail(self):
+        # create sample dataframe
+        details = [
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 6,
+                "comms_num": 1,
+                "created": 1613886608,
+                "timestamp": "3/1/21 6:33"
+            }]
+
+        details2 = [
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 6,
+                "comms_num": 1,
+                "created": 1613886608,
+                "timestamp": "3/1/21 6:33"
+            }]
+
+        test_df = pd.DataFrame(details)
+        test_df2 = pd.DataFrame(details2)
+        test_file_name = "car_accident.csv"
+        test_dataset = Dataset(test_df2, test_file_name)
+        self.assertEqual(str(test_dataset.get_tail(2)), str(test_df.tail(2)))
+
+class GetSample(unittest.TestCase):
+    def test_get_sample(self):
+        # create sample dataframe
+        details = [
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 6,
+                "comms_num": 1,
+                "created": 1613886608,
+                "timestamp": "3/1/21 6:33"
+            }]
+
+        details2 = [
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 7,
+                "comms_num": 1,
+                "created": 1614400425,
+                "timestamp": "2/27/21 6:33"
+            },
+            {
+                "title": "Health Canada",
+                "score": 6,
+                "comms_num": 1,
+                "created": 1613886608,
+                "timestamp": "3/1/21 6:33"
+            }]
+
+        test_df = pd.DataFrame(details)
+        test_df2 = pd.DataFrame(details2)
+        test_file_name = "car_accident.csv"
+        test_dataset = Dataset(test_df2, test_file_name)
+        self.assertEqual(type(test_dataset.get_sample(2)), type(test_df.sample(2)))
 
 
 class GetNumericColumns(unittest.TestCase):
