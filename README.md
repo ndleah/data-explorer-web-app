@@ -3,6 +3,10 @@
 
 # Data Explorer Web App <img src="/img/computer.jpg" align="right" width="120" />
 
+## 🕹️ Demo
+
+![demo](/img/demo.gif)
+
 ## 🛠️ Description
 In this project, our group will develop an interactive web application using Streamlit that will read a provided CSV file by the user and perform some exploratory data analysis on it. The web application needs to be containerised with Docker and will be running using python 3.8.2.
 
