@@ -94,7 +94,7 @@ class Dataset:
     """
       Return list column names of datetime type from loaded dataset
     """
-    self.date = ['date', 'time', 'datetime']
+    self.date = ['datetime']
     self.df_date = self.df.select_dtypes(include=self.date).columns
     return self.df_date
 

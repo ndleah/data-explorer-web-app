@@ -52,7 +52,6 @@ def file_upload():
     Display file uploader.
     """
     dataset = st.file_uploader("Choose a CSV file", type="csv")
-
     return dataset
 
 
@@ -140,7 +139,7 @@ def overall_info(df, dataset) -> None:
 
     # Display list of columns and their data type (text, numeric, date)
     # Display list of columns
-    df_col_list = str(gen_info.get_cols_list()).replace('[','').replace(']','').replace("'","") # get list of column names
+    df_col_list = str(gen_info.get_cols_list()).replace('[','').replace(']','').replace("'","")
     st.markdown(f'**List of Columns:**')
     st.write(df_col_list)
 
@@ -404,7 +403,7 @@ def datetime_column(df) -> None:
             st.markdown("**DateTime Bar Chart Frequencies**")
             st.altair_chart(datecol_object.get_barchart())
 
-                    # create frequency table
+            # create frequency table
             st.markdown('**Most Frequent DateTime Values**')
             frequencies = datecol_object.get_frequent()
             st.write(frequencies)
