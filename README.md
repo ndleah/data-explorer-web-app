@@ -1,7 +1,11 @@
 ![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 
-# Collaborative Development of Data Explorer Web App
+# Data Explorer Web App <img src="/img/computer.jpg" align="right" width="120" />
+
+## 🕹️ Demo
+
+![demo](/img/demo.gif)
 
 ## 🛠️ Description
 In this project, our group will develop an interactive web application using Streamlit that will read a provided CSV file by the user and perform some exploratory data analysis on it. The web application needs to be containerised with Docker and will be running using python 3.8.2.
@@ -16,7 +20,7 @@ In this project, our group will develop an interactive web application using Str
 ## 🏗️ Structure
 
 ```
-./Data_Explorer_Web_App/
+./
 │
 ├── .github/
 │   ├── ISSUE_TEMPLATE       
@@ -27,6 +31,8 @@ In this project, our group will develop an interactive web application using Str
 │
 ├── app/
 │   └── streamlit_app.py         <- main script used for displaying the final application in the Docker container
+│
+├── img/                         <- contains image(s) used in README.md 
 │
 ├── src/
 │   ├── test
