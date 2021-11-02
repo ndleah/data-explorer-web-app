@@ -1,6 +1,4 @@
 import unittest
-from unittest import mock
-from unittest.mock import patch
 from collections import Counter
 from altair.vegalite.v4.schema.core import CompositeMarkDef
 import pandas as pd
