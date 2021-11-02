@@ -204,7 +204,7 @@ class Test_Text_Whitespace(unittest.TestCase):
             self.assertEqual(result, 0)
 
 
-# test Class with only lower case characters (7 tests)
+# test Class with only lower case characters (10 tests)
 class Test_Text_Lower_Case(unittest.TestCase):
     def test_value_lowercase_letter(self):
         # create sample dataframe
@@ -294,7 +294,7 @@ class Test_Text_Lower_Case(unittest.TestCase):
         for (columnName, columnData) in test_df.iteritems():
             test.get_data(columnName, columnData)
             result = test.get_lowercase()
-            self.assertEqual(result, 'None')
+            self.assertEqual(result, 0)
 
     def test_value_lowercase_date(self):
         # create sample dataframe
@@ -304,10 +304,10 @@ class Test_Text_Lower_Case(unittest.TestCase):
         for (columnName, columnData) in test_df.iteritems():
             test.get_data(columnName, columnData)
             result = test.get_lowercase()
-            self.assertEqual(result, 'None')
+            self.assertEqual(result, 0)
 
 
-# test Class with only upper case characters (7 tests)
+# test Class with only upper case characters (10 tests)
 class Test_Text_upper_Case(unittest.TestCase):
     def test_value_uppercase_letter(self):
         # create sample dataframe
@@ -387,7 +387,7 @@ class Test_Text_upper_Case(unittest.TestCase):
         for (columnName, columnData) in test_df.iteritems():
             test.get_data(columnName, columnData)
             result = test.get_uppercase()
-            self.assertEqual(result, 'None')
+            self.assertEqual(result, 0)
 
     def test_value_uppercase_date(self):
         # create sample dataframe
@@ -397,7 +397,7 @@ class Test_Text_upper_Case(unittest.TestCase):
         for (columnName, columnData) in test_df.iteritems():
             test.get_data(columnName, columnData)
             result = test.get_uppercase()
-            self.assertEqual(result, 'None')
+            self.assertEqual(result, 0)
 
     def test_value_uppercase_mix_number(self):
         # create sample dataframe
