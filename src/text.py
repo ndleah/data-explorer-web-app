@@ -62,7 +62,7 @@ class TextColumn:
     final= pd.Series(alplist)
 
     if final.empty:
-      result = 'None'
+      result = 0
     else:
       result = sum(final.str.islower().fillna(False))
     
@@ -85,7 +85,7 @@ class TextColumn:
     final= pd.Series(alplist)
 
     if final.empty:
-      result = 'None'
+      result = 0
     else:
       result = sum(final.str.isupper().fillna(False))
 
