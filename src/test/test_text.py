@@ -226,7 +226,7 @@ class Test_Text_Lower_Case(unittest.TestCase):
             result = test.get_lowercase()
             self.assertEqual(result, 3)
 
-    def test_value_lowercase_mix_number(self):
+    def test_value_lowercase_letter_number(self):
         # create sample dataframe
         self.strname = {'test': ['A','b','b', 'ab','2b','b2']}
         test_df = pd.DataFrame(self.strname)
@@ -276,6 +276,37 @@ class Test_Text_Lower_Case(unittest.TestCase):
             result = test.get_lowercase()
             self.assertEqual(result, 2)
 
+    def test_value_lowercase_mix_number(self):
+        # create sample dataframe
+        self.strname = {'test': ['1','2','3', '*b','b_','b']}
+        test_df = pd.DataFrame(self.strname)
+        test = TextColumn()
+        for (columnName, columnData) in test_df.iteritems():
+            test.get_data(columnName, columnData)
+            result = test.get_lowercase()
+            self.assertEqual(result, 1)
+
+    def test_value_lowercase_number(self):
+        # create sample dataframe
+        self.strname = {'test': ['1','2','3']}
+        test_df = pd.DataFrame(self.strname)
+        test = TextColumn()
+        for (columnName, columnData) in test_df.iteritems():
+            test.get_data(columnName, columnData)
+            result = test.get_lowercase()
+            self.assertEqual(result, 'None')
+
+    def test_value_lowercase_date(self):
+        # create sample dataframe
+        self.strname = {'test': ['1970-01-01T06:33:45', '2021-02-26T07:11:07']}
+        test_df = pd.DataFrame(self.strname)
+        test = TextColumn()
+        for (columnName, columnData) in test_df.iteritems():
+            test.get_data(columnName, columnData)
+            result = test.get_lowercase()
+            self.assertEqual(result, 'None')
+
+
 # test Class with only upper case characters (7 tests)
 class Test_Text_upper_Case(unittest.TestCase):
     def test_value_uppercase_letter(self):
@@ -298,7 +329,7 @@ class Test_Text_upper_Case(unittest.TestCase):
             result = test.get_uppercase()
             self.assertEqual(result, 2)
 
-    def test_value_lowercase_mix_number(self):
+    def test_value_uppercase_letter_number(self):
         # create sample dataframe
         self.strname = {'test': ['A','C','ABC', 'ab','2A','A2']}
         test_df = pd.DataFrame(self.strname)
@@ -308,7 +339,7 @@ class Test_Text_upper_Case(unittest.TestCase):
             result = test.get_uppercase()
             self.assertEqual(result, 3)
 
-    def test_value_lowercase_mix_space(self):
+    def test_value_uppercase_mix_space(self):
         # create sample dataframe
         self.strname = {'test': ['A','B','AB', 'A b',' A','B ']}
         test_df = pd.DataFrame(self.strname)
@@ -318,7 +349,7 @@ class Test_Text_upper_Case(unittest.TestCase):
             result = test.get_uppercase()
             self.assertEqual(result, 3)
 
-    def test_value_lowercase_mix_empty(self):
+    def test_value_uppercase_mix_empty(self):
         # create sample dataframe
         self.strname = {'test': ['A','B','AB', '']}
         test_df = pd.DataFrame(self.strname)
@@ -328,7 +359,7 @@ class Test_Text_upper_Case(unittest.TestCase):
             result = test.get_uppercase()
             self.assertEqual(result, 3)
 
-    def test_value_lowercase_mix_missing(self):
+    def test_value_uppercase_mix_missing(self):
         # create sample dataframe
         self.strname = {'test': ['A','B','AB', np.NaN]}
         test_df = pd.DataFrame(self.strname)
@@ -338,7 +369,7 @@ class Test_Text_upper_Case(unittest.TestCase):
             result = test.get_uppercase()
             self.assertEqual(result, 3)
 
-    def test_value_lowercase_mix_special(self):
+    def test_value_uppercase_mix_special(self):
         # create sample dataframe
         self.strname = {'test': ['A','B','AB', '*A','B_','*B_']}
         test_df = pd.DataFrame(self.strname)
@@ -347,6 +378,36 @@ class Test_Text_upper_Case(unittest.TestCase):
             test.get_data(columnName, columnData)
             result = test.get_uppercase()
             self.assertEqual(result, 3)
+
+    def test_value_uppercase_number(self):
+        # create sample dataframe
+        self.strname = {'test': ['1','2','3']}
+        test_df = pd.DataFrame(self.strname)
+        test = TextColumn()
+        for (columnName, columnData) in test_df.iteritems():
+            test.get_data(columnName, columnData)
+            result = test.get_uppercase()
+            self.assertEqual(result, 'None')
+
+    def test_value_uppercase_date(self):
+        # create sample dataframe
+        self.strname = {'test': ['1970-01-01T06:33:45', '2021-02-26T07:11:07']}
+        test_df = pd.DataFrame(self.strname)
+        test = TextColumn()
+        for (columnName, columnData) in test_df.iteritems():
+            test.get_data(columnName, columnData)
+            result = test.get_uppercase()
+            self.assertEqual(result, 'None')
+
+    def test_value_uppercase_mix_number(self):
+        # create sample dataframe
+        self.strname = {'test': ['1','2','3', 'B','b_','b']}
+        test_df = pd.DataFrame(self.strname)
+        test = TextColumn()
+        for (columnName, columnData) in test_df.iteritems():
+            test.get_data(columnName, columnData)
+            result = test.get_uppercase()
+            self.assertEqual(result, 1)
 
 
 # test Class with only alphabet case characters (7 tests)

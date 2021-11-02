@@ -61,7 +61,14 @@ class TextColumn:
           alplist.append(alp)
     final= pd.Series(alplist)
 
-    return sum(final.str.islower().fillna(False))
+    if final.empty:
+      result = 'None'
+    else:
+      result = sum(final.str.islower().fillna(False))
+    
+    return result
+
+    #return sum(final.str.islower().fillna(False))
 
   def get_uppercase(self):
     """
@@ -77,7 +84,13 @@ class TextColumn:
             alplist.append(alp)
     final= pd.Series(alplist)
 
-    return sum(final.str.isupper().fillna(False))
+    if final.empty:
+      result = 'None'
+    else:
+      result = sum(final.str.isupper().fillna(False))
+
+    return result
+    #return sum(final.str.isupper().fillna(False))
   
   def get_alphabet(self):
     """
