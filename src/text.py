@@ -3,6 +3,7 @@ import streamlit as st
 from dataclasses import dataclass
 import pandas as pd
 import altair as alt
+import numpy as np
 
 
 
@@ -50,13 +51,33 @@ class TextColumn:
     """
     Return number of rows with only lower case characters for selected column
     """
-    return sum(self.serie.str.islower().fillna(False))
+    # the loop is to create a new series to include alphabet charaters only
+    alplist = []
+    for alp in self.serie:
+      if alp is np.NaN:
+        None
+      else:
+        if alp.isalpha() == True:
+          alplist.append(alp)
+    final= pd.Series(alplist)
+
+    return sum(final.str.islower().fillna(False))
 
   def get_uppercase(self):
     """
     Return number of rows with only upper case characters for selected column
     """
-    return sum(self.serie.str.isupper().fillna(False))
+     # the loop is to create a new series to include alphabet charaters only
+    alplist = []
+    for alp in self.serie:
+      if alp is np.NaN:
+        None
+      else:
+        if alp.isalpha() == True:
+            alplist.append(alp)
+    final= pd.Series(alplist)
+
+    return sum(final.str.isupper().fillna(False))
   
   def get_alphabet(self):
     """
