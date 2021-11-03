@@ -49,7 +49,7 @@ In this project, our group will develop an interactive web application using Str
 │   │
 │   ├── __init__.py              <- turns src folder into a package for importing in main script
 │   ├── data.py                  <- contains the code for displaying the "Overall information" section
-│   ├── datetime.py              <- contains the code for displaying the "Information on each datetime" section
+│   ├── date_time.py              <- contains the code for displaying the "Information on each datetime" section
 │   ├── numeric.py               <- contains the code for displaying the "Information on each numeric column" section
 │   └── text.py                  <- contains the code for displaying the "Information on each text column" section
 │   
