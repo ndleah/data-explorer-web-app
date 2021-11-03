@@ -27,9 +27,11 @@ class TestUniqueValues(unittest.TestCase):
     def test_get_unique(self):
         data = [0,1,2,3,4.4]
         test_example = pd.DataFrame(data)
-        test_numeric = NumericColumn()
-        test_both = Dataset(test_example, test_numeric)
-        self.assertEqual(test_both.get_unique(), 5)
+
+
+        test_numeric = NumericColumn(test_example, data)
+        
+        self.assertEqual(test_numeric.get_unique(), 5)
 
 #Test: Create class and get missing values
 
@@ -37,75 +39,82 @@ class TestMissingValues(unittest.TestCase):
      def test_get_missing(self):
         data = [0,1,2,3,4.4,NaN]
         test_example = pd.DataFrame(data)
-        test_numeric = NumericColumn()
-        test_both = Dataset(test_example, test_numeric)
-        self.assertEqual(test_both.get_missing(), 1)
+
+
+        test_numeric = NumericColumn(test_example, data)
+       
+        self.assertEqual(test_numeric.get_missing(), 1)
 
 #Test: Create class and get zero values
 
 class TestGetZeros(unittest.TestCase):
-     def test_get_zeros(self:)
+    def test_get_zeros(self:)
         data = [0,1,2,3,4.4]
         test_example = pd.DataFrame(data)
-        test_numeric = NumericColumn()
-        test_both = Dataset(test_example, test_numeric)
-        self.assertEqual(test_both.get_zeros(), 1)
+
+        test_numeric = NumericColumn(test_example, data)
+
+        self.assertEqual(test_numeric.get_zeros(), 1)
 
 #Test: Create class and get negative values
 class TestGetNegatives(unittest.TestCase):
     def test_get_negatives(self:)
         data = [0,1,2,3,4.4,-5]
         test_example = pd.DataFrame(data)
-        test_numeric = NumericColumn()
-        test_both = Dataset(test_example, test_numeric)
-        self.assertEqual(test_both.get_negatives(), 1) 
+
+        test_numeric = NumericColumn(test_example, data)
+        
+        self.assertEqual(test_numeric.get_negatives(), 1) 
 
 #Test: Create class and display average value
 class TestGetAverage(unittest.TestCase):
     def test_get_mean(self:)
         data = [0,1,2,3,4.4]
-        mean(data)
         test_example = pd.DataFrame(data)
-        test_numeric = NumericColumn()
-        test_both = Dataset(test_example, test_numeric)
-        self.assertEqual(test_both.get_mean(), 2.08) 
+
+        test_numeric = NumericColumn(test_example, data)
+        
+        self.assertEqual(test_numeric.get_mean(), 2.08) 
 
 #Test: Create class and display stamdard deviation value
 class TestGetStandardDeviation(unittest.TestCase):
     def test_get_std(self:)
         data = [0,1,2,3,4.4]
         test_example = pd.DataFrame(data)
-        test_numeric = NumericColumn()
-        test_both = Dataset(test_example, test_numeric)
-        self.assertEqual(test_both.get_std(), 1.5315351775261319) 
-        #np.std
+        
+        test_numeric = Dataset(test_example, data)
+
+        self.assertEqual(test_numeric.get_std(), 1.5315351775261319) 
 
 #Test: Create class and display stamdard deviation value
 class TestGetMinimumValue(unittest.TestCase):
     def test_get_min(self:)
     data = [0,1,2,3,4.4]
     test_example = pd.DataFrame(data)
-    test_numeric = NumericColumn()
-    test_both = Dataset(test_example, test_numeric)
-    self.assertEqual(test_both.get_min(), 0) 
+    
+    test_numeric = Dataset(test_example, data)
+
+    self.assertEqual(test_numeric.get_min(), 0) 
 
 #Test: Create class and display maximum value
 class TestGetMaximumValue(unittest.TestCase):
     def test_get_max(self:)
     data = [0,1,2,3,4.4]
     test_example = pd.DataFrame(data)
-    test_numeric = NumericColumn()
-    test_both = Dataset(test_example, test_numeric)
-    self.assertEqual(test_both.get_max(), 4.4) 
+
+    test_numeric = Dataset(test_example, data)
+    
+    self.assertEqual(test_numeric.get_max(), 4.4) 
 
 #Test: Create class and display median value
 class TestGetMedianValue(unittest.TestCase):
     def test_get_median(self:)
     data = [0,1,2,3,4.4]
     test_example = pd.DataFrame(data)
-    test_numeric = NumericColumn()
-    test_both = Dataset(test_example, test_numeric)
-    self.assertEqual(test_both.get_median(),2) 
+    
+    test_numeric = Dataset(test_example, data)
+
+    self.assertEqual(test_numeric.get_median(),2) 
 
 # Create a dataFrame for displaying in the Web App
 value = {'value': pd.Series([unique_values,missing_values,occurence_0,negative_value,avg_value,std_value,min_value,max_value,median_value], 
@@ -113,6 +122,8 @@ index = ['Number of Unique Values:','Number of Missing Values:','Number of Rows 
 'Average Values:','Standard Deviation Values:','Minimum Value', 'Maximum Value','Median Value'])}
 df_value = pd.DataFrame(value)
 st.write(df_value)
+
+
 
     
 # Plot bar chat and display in Web App
