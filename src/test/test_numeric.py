@@ -12,11 +12,14 @@ from numeric import NumericColumn
 
 class TestNameColumn(unittest.TestCase):
     def test_get_name(self): 
+        # create class attributes - column name and a sample df
          numeric_column = "Column name"
          test_example = pd.DataFrame(numeric_column)
-         test_numeric = NumericColumn()
-         test_both = Dataset(test_example, test_numeric)
-         self.assertEqual(test_both.get_name, test_numeric)
+
+        # inisialize class
+         test_numeric = NumericColumn(test_example, numeric_column)
+
+         self.assertEqual(test_numeric.get_name, numeric_column)
 
 #Test: Create class and get unique values:
 
@@ -31,7 +34,7 @@ class TestUniqueValues(unittest.TestCase):
 #Test: Create class and get missing values
 
 class TestMissingValues(unittest.TestCase):
-     def test_get_missing(self:)
+     def test_get_missing(self):
         data = [0,1,2,3,4.4,NaN]
         test_example = pd.DataFrame(data)
         test_numeric = NumericColumn()
