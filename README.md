@@ -17,7 +17,13 @@ In this project, our group will develop an interactive web application using Str
 * [Jia Ping Cai](https://github.com/caijiaping)
 * [Laura Sofia Bayona](https://github.com/Laurabayonaf)
 
-## 🏗️ Structure
+## 🏗️ Program Structure
+
+### ⚙️ Program flow chart
+
+![flowchart](/img/flowchart.png)
+
+### 📁 File Structure & Description
 
 ```
 ./
