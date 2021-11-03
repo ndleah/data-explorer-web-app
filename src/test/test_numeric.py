@@ -1,119 +1,125 @@
-# To be filled by students
+# Import modules and packages
 import unittest
-from collections import Counter
-from altair.vegalite.v4.schema.core import X
-from numeric import NumericColumn
+from unittest.case import TestCase
+from numpy import NaN, zeros 
 import pandas as pd
 import altair as alt
-import numpy as np
-
-# change this to the path of your module
 import sys
-sys.path.append('../')
+sys.path.append("../")
+from numeric import NumericColumn
 
-# To be filled by students
-#from _typeshed import Self
-from altair.vegalite.v4.schema.channels import X
-import streamlit as st
-from dataclasses import dataclass
-import pandas as pd
-import altair as alt
-import statistics as stat
-import numpy as numpy
+#Test: Create class and get name:
 
+class TestNameColumn(unittest.TestCase):
+    def test_get_name(self): 
+         numeric_column = "Column name"
+         test_example = pd.DataFrame(numeric_column)
+         test_numeric = NumericColumn()
+         test_both = Dataset(test_example, test_numeric)
+         self.assertEqual(test_both.get_name, test_numeric)
 
-@dataclass
-class NumericColumn:
-  col_name: str = None
-  serie: pd.Series = None
+#Test: Create class and get unique values:
 
-  def get_data(self, name, dfdata):
-    self.col_name = name
-    self.serie = dfdata
- 
-  def get_name(self):
-    """
-    Return name of selected column
-    """
-    return self.col_name.capitalize()
+class TestUniqueValues(unittest.TestCase):
+    def test_get_unique(self):
+        data = [0,1,2,3,4.4]
+        test_example = pd.DataFrame(data)
+        test_numeric = NumericColumn()
+        test_both = Dataset(test_example, test_numeric)
+        self.assertEqual(test_both.get_unique(), 5)
 
-  def get_unique(self):
-    """
-    Return number of unique values for selected column
-    """
-    return len(self.serie.unique().tolist())
+#Test: Create class and get missing values
 
+class TestMissingValues(unittest.TestCase):
+     def test_get_missing(self:)
+        data = [0,1,2,3,4.4,NaN]
+        test_example = pd.DataFrame(data)
+        test_numeric = NumericColumn()
+        test_both = Dataset(test_example, test_numeric)
+        self.assertEqual(test_both.get_missing(), 1)
 
-  def get_missing(self):
-    """
-    Return number of missing values for selected column
-    """
-    return self.serie.isna().sum()
+#Test: Create class and get zero values
 
-  def get_zeros(self):
-    """
-    Return number of occurrence of 0 value for selected column
-    """
+class TestGetZeros(unittest.TestCase):
+     def test_get_zeros(self:)
+        data = [0,1,2,3,4.4]
+        test_example = pd.DataFrame(data)
+        test_numeric = NumericColumn()
+        test_both = Dataset(test_example, test_numeric)
+        self.assertEqual(test_both.get_zeros(), 1)
 
-    ##return sum(self.serie.str.is0().fillna(True))
+#Test: Create class and get negative values
+class TestGetNegatives(unittest.TestCase):
+    def test_get_negatives(self:)
+        data = [0,1,2,3,4.4,-5]
+        test_example = pd.DataFrame(data)
+        test_numeric = NumericColumn()
+        test_both = Dataset(test_example, test_numeric)
+        self.assertEqual(test_both.get_negatives(), 1) 
 
-    return (self.serie == 0).sum()
+#Test: Create class and display average value
+class TestGetAverage(unittest.TestCase):
+    def test_get_mean(self:)
+        data = [0,1,2,3,4.4]
+        mean(data)
+        test_example = pd.DataFrame(data)
+        test_numeric = NumericColumn()
+        test_both = Dataset(test_example, test_numeric)
+        self.assertEqual(test_both.get_mean(), 2.08) 
 
+#Test: Create class and display stamdard deviation value
+class TestGetStandardDeviation(unittest.TestCase):
+    def test_get_std(self:)
+        data = [0,1,2,3,4.4]
+        test_example = pd.DataFrame(data)
+        test_numeric = NumericColumn()
+        test_both = Dataset(test_example, test_numeric)
+        self.assertEqual(test_both.get_std(), 1.5315351775261319) 
+        #np.std
 
-  def get_negatives(self):
-    """
-    Return number of negative values for selected column
-    """
-    return (self.serie < 0).sum()
+#Test: Create class and display stamdard deviation value
+class TestGetMinimumValue(unittest.TestCase):
+    def test_get_min(self:)
+    data = [0,1,2,3,4.4]
+    test_example = pd.DataFrame(data)
+    test_numeric = NumericColumn()
+    test_both = Dataset(test_example, test_numeric)
+    self.assertEqual(test_both.get_min(), 0) 
 
-  def get_mean(self):
-    """
-    Return the average value for selected column
-    """
-    return self.serie.mean()
+#Test: Create class and display maximum value
+class TestGetMaximumValue(unittest.TestCase):
+    def test_get_max(self:)
+    data = [0,1,2,3,4.4]
+    test_example = pd.DataFrame(data)
+    test_numeric = NumericColumn()
+    test_both = Dataset(test_example, test_numeric)
+    self.assertEqual(test_both.get_max(), 4.4) 
 
+#Test: Create class and display median value
+class TestGetMedianValue(unittest.TestCase):
+    def test_get_median(self:)
+    data = [0,1,2,3,4.4]
+    test_example = pd.DataFrame(data)
+    test_numeric = NumericColumn()
+    test_both = Dataset(test_example, test_numeric)
+    self.assertEqual(test_both.get_median(),2) 
 
-  def get_std(self):
-    """
-    Return the standard deviation value for selected column
-    """
-    return self.serie.std()
-  
-  def get_min(self):
-    """
-    Return the minimum value for selected column
-    """
-    return self.serie.min()
+# Create a dataFrame for displaying in the Web App
+value = {'value': pd.Series([unique_values,missing_values,occurence_0,negative_value,avg_value,std_value,min_value,max_value,median_value], 
+index = ['Number of Unique Values:','Number of Missing Values:','Number of Rows with 0:','Number of Rows with Negative Values:',
+'Average Values:','Standard Deviation Values:','Minimum Value', 'Maximum Value','Median Value'])}
+df_value = pd.DataFrame(value)
+st.write(df_value)
 
-  def get_max(self):
-    """
-    Return the maximum value for selected column
-    """
-    return self.serie.max()
-
-  def get_median(self):
-    """
-    Return the median value for selected column
-    """
-    return self.serie.median()
-
-  def get_histogram(self):
-    """
-    Return the generated histogram for selected column
-    """
-    data = {self.col_name:self.serie}
-    df_barchart = pd.DataFrame(data)
-    chart = alt.Chart(df_barchart).mark_bar().encode(alt.X(self.col_name, bin = alt.Bin(step = 50)), y='count()')
-    return chart
-
-  def get_frequent(self):
-    """
-    Return the Pandas dataframe containing the occurrences and percentage of the top 20 most frequent values
-    """
-    data = {'value':self.serie}
-    df = pd.DataFrame(data)
-    df = df.head(20)
-    df_frequent = df.groupby('value').size().reset_index(name = 'occurrence')
-    df_frequent['percentage'] = df_frequent['occurrence']/df_frequent['occurrence'].sum()
     
-    return df_frequent
+# Plot bar chat and display in Web App
+st.markdown('**Histogram**')
+st.altair_chart(numeric.get_histogram())
+
+# Create a frequent table and display in WebA[[]]
+st.markdown('**Most Frequent Values**')
+frequent = numeric.get_frequent()
+st.write(frequent)
+
+if __name__ == '__main__':
+    unittest.main()
