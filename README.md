@@ -94,3 +94,19 @@ docker-compose down --rmi all
 ```
 
 to stop the application, remove the stopped containers and optionally `--rmi all` / remove all images associated in the docker-compose.yml file.
+
+## 👏 Support
+
+Give a ⭐️ if you like this project!
+
+## 📝 Feedback
+
+If you have any feedback or ideas to improve this project, feel free to contact me via
+
+<a href="https://www.linkedin.com/in/ndleah/">
+  <img align="left" alt="Leah's LinkdedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />
+
+</a>
+<a href="https://github.com/ndleah">
+  <img align="left" alt="Leah's Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />
+</a>
